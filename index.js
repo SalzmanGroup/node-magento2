@@ -10,8 +10,15 @@
  */
 
 const qs = require('qs');
-const request = require('request');
 const deepmerge = require('deepmerge');
+// Detect if a proxy is required
+if(process.env.PROXY_URL){
+  console.log("proxy envvar FOUND:"+process.env.PROXY_URL);
+  const request = require('request').defaults({'proxy': process.env.PROXY_URL });;
+} else {
+  console.log("proxy envvar NOT FOUND");
+  const request = require('request');
+}
 
 const defaultOptions = {
   url: null,
